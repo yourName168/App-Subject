@@ -3,6 +3,8 @@ package com.lth.identify_service.service;
 import com.lth.identify_service.dto.request.UserCreationRequest;
 import com.lth.identify_service.dto.request.UserUpdateRequest;
 import com.lth.identify_service.entity.User;
+import com.lth.identify_service.exception.AppException;
+import com.lth.identify_service.exception.ErrorCode;
 import com.lth.identify_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ public class UserService {
         User user = new User();
         String userName = request.getUsername();
         if(userRepository.existsByUsername(userName)){
-            throw new RuntimeException("Username already exists!");
+            throw new AppException(ErrorCode.USER_EXISTS);
         }
 
         user.setUsername(request.getUsername());
