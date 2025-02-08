@@ -2,6 +2,7 @@ package com.lth.identify_service.controller;
 
 import com.lth.identify_service.dto.request.UserCreationRequest;
 import com.lth.identify_service.dto.request.UserUpdateRequest;
+import com.lth.identify_service.dto.response.ApiResponse;
 import com.lth.identify_service.entity.User;
 import com.lth.identify_service.service.UserService;
 import jakarta.validation.Valid;
@@ -18,8 +19,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse response = new ApiResponse(
+            201,
+            "User created successfully",
+            userService.createUser(request)
+        );
+
+        return response;
     }
 
     @GetMapping
@@ -33,12 +40,12 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    User updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdateRequest request){
+    User updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdateRequest request) {
         return userService.updateUser(userId, request);
     }
 
     @DeleteMapping("/{userId}")
-    String deleteUser(@PathVariable("userId") String userId){
+    String deleteUser(@PathVariable("userId") String userId) {
         return userService.deleteUser(userId);
     }
 
