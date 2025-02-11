@@ -20,8 +20,7 @@ public class GlobalExceptionHandler {
         ErrorCode errorCode = ErrorCode.INVALID_MESSAGE_KEY;
         try {
             errorCode = ErrorCode.valueOf(errorKey);
-        }
-        catch (IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception) {
         }
         ApiResponse response = new ApiResponse(errorCode.getCode(), errorCode.getMessage(), null);
         return ResponseEntity.badRequest().body(response);
