@@ -11,6 +11,8 @@ import com.lth.identify_service.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,8 @@ public class UserService {
         }
 
         User user = userMapper.toUser(request);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userMapper.toUserResponse(userRepository.save(user));
 
     }
@@ -57,7 +61,7 @@ public class UserService {
             userRepository.deleteById(userId);
             return "User deleted successfully";
         } catch (Exception e) {
-            return "User not found";
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
     }
 }
