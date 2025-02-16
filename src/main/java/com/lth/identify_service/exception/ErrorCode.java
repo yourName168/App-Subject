@@ -14,6 +14,7 @@ public enum ErrorCode {
     PASSWORD_INVALID(1003, "password has to be between 8 and 20 characters"),
     INVALID_MESSAGE_KEY(1004, "Invalid message key"),
     USER_NOT_FOUND(404, "User not found"),
+    UNAUTHENTICATED(401, "Unauthenticated"),
     ;
     int code;
     String message;
