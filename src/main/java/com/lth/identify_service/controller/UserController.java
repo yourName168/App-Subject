@@ -57,4 +57,12 @@ public class UserController {
         return response;
     }
 
+    @GetMapping("getMyInfor")
+    ApiResponse<UserResponse> getMyInfor() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+        ApiResponse response = new ApiResponse(200, "User retrieved successfully", userService.getUser(userId));
+        return response;
+    }
+
 }
