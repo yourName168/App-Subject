@@ -69,6 +69,7 @@ public class UserService {
             userRepository.deleteById(userId);
             return "User deleted successfully";
         } catch (Exception e) {
+            System.out.println("123");
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
     }
